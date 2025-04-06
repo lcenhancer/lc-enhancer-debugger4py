@@ -16,13 +16,15 @@ limitations under the License.
 
 """
 
-import io
-import sys
 
-from src.base.impl.base_buffer_reader_input_provider import BaseBufferReaderInputProvider
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
-class ConsoleInputProvider(BaseBufferReaderInputProvider):
-
-    def __init__(self, encoding: str = 'utf-8'):
-        super().__init__(io.TextIOWrapper(sys.stdin.buffer, encoding=encoding))
+class ListNode:
+    def __init__(self, val=0, _next_=None):
+        self.val = val
+        self.next = _next_
