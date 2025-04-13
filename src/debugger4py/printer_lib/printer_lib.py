@@ -51,7 +51,7 @@ class OutputPrinter(BaseOutputPrintStrategy):
         }
 
     def get_acceptable_type(self) -> Type:
-        return type(Any)
+        return Any
 
     def get_order(self) -> int:
         return -1
@@ -78,7 +78,7 @@ class OutputPrinterFactory:
     def get_output_printer(enhancer) -> OutputPrinter:
         AssertUtil.non_null(enhancer, "The enhancer cannot be null.")
         builtin_strategy_classes = ClassUtil.get_classes_from_module(
-            ModuleUtil.load_module_from_file("builtin_strategy.py"),
+            ModuleUtil.load_module_from_file("src.debugger4py.printer_lib.builtin_strategy"),
             lambda cls:
             not isabstract(cls)
             and issubclass(cls, BaseOutputPrintStrategy)
