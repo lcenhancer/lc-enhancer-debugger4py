@@ -84,6 +84,7 @@ class OutputPrinterFactory:
             and issubclass(cls, BaseOutputPrintStrategy)
         )
         builtin_strategies = ClassUtil.instantiate_classes(builtin_strategy_classes)
-        if ContainerUtil.not_empty(enhancer.get_output_print_strategies()):
-            builtin_strategies.extend(enhancer.get_output_print_strategies())
+        custom_strategies = enhancer.get_output_print_strategies()
+        if ContainerUtil.not_empty(custom_strategies):
+            builtin_strategies.extend(custom_strategies)
         return OutputPrinter(builtin_strategies)
