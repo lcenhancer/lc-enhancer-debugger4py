@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
+
 import inspect
 import importlib.util
 
-from typing import Any
-from pathlib import Path
+from typing import Any, get_args, Type, get_origin
 
 
 class AssertUtil:
@@ -65,11 +65,7 @@ class ContainerUtil:
 class ModuleUtil:
     @staticmethod
     def load_module_from_file(file_path):
-        module_name = Path(file_path).stem
-        spec = importlib.util.spec_from_file_location(module_name, file_path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        return module
+        return importlib.import_module(file_path)
 
 
 class ClassUtil:
@@ -97,3 +93,14 @@ class ClassUtil:
         for c in classes:
             instances.append(ClassUtil.instantiate_class(c, config))
         return instances
+
+
+class TypeUtil:
+
+    @staticmethod
+    def obtain_generic_argument_types(cur_type: Type):
+        return get_args(cur_type)
+
+    @staticmethod
+    def obtain_raw_type_of_type(cur_type: Type):
+        return get_origin(cur_type)

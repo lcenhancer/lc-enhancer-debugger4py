@@ -19,7 +19,7 @@ limitations under the License.
 from abc import ABCMeta, abstractmethod
 from typing import Type, List, Any
 
-from src.debugger4py.base_lib.util_lib import AssertUtil
+from src.debugger4py.base_lib.util_lib import AssertUtil, TypeUtil
 
 
 class Order(metaclass=ABCMeta):
@@ -42,7 +42,7 @@ class Strategizable(Order, metaclass=ABCMeta):
         if obj is None:
             return type(None)
         if isinstance(obj, type):
-            return obj
+            return TypeUtil.obtain_raw_type_of_type(obj)
         return type(obj)
 
     @classmethod

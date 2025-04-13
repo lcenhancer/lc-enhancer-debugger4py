@@ -14,5 +14,6 @@ from src.debugger4py.base_lib.util_lib import (
     StringUtil,
     ContainerUtil,
     ModuleUtil,
-    ClassUtil
+    ClassUtil,
+    TypeUtil
 )
