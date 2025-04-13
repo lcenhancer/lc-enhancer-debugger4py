@@ -1,3 +1,21 @@
+"""
+
+Copyright (C) 2025-2030 LcEnhancer(https://github.com/lcenhancer).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+"""
+
 import ast
 from collections import OrderedDict
 from typing import Type, Dict, Any, List, Tuple, Optional, Union
@@ -30,9 +48,9 @@ class PythonFunction:
         self.return_type = select_not_any_type(sign_pi[1], doc_pi[1])
 
     def invoke(self, args):
-        return self.func(**args)
+        return self.func(*args)
 
-    def invoke0(self, *args, **kwargs):
+    def invoke_with_kwargs(self, args, kwargs):
         return self.func(*args, **kwargs)
 
     @staticmethod
@@ -154,23 +172,35 @@ class PythonFunction:
 
 
 class LeetcodeInvoker(Order):
-    def __init__(self, invoker_id: int, order: int, py_function: PythonFunction):
+    def __init__(self, invoker_id: int, order: int, py_function: PythonFunction, matching_friendly: bool = True):
         AssertUtil.non_null(py_function, "The func cannot be null.")
         self.id = invoker_id
         self.order = order
         self.py_function = py_function
+        self.matching_friendly = matching_friendly
 
     def get_id(self):
         return self.id
 
     def get_parameter_cnt(self):
-        return len(self.py_function.parameter_info)
+        p_l = len(self.py_function.parameter_info.keys())
+        if p_l > 0 and 'self' in self.py_function.parameter_info and self.matching_friendly:
+            return p_l - 1
+        return p_l
 
     def get_parameter_types(self):
-        return self.py_function.parameter_info.values()
+        pi = self.py_function.parameter_info
+        if self.matching_friendly and 'self' in pi:
+            pi = pi.copy()
+            del pi['self']
+        return pi.values()
 
     def get_parameters(self):
-        return self.py_function.parameter_info
+        pi = self.py_function.parameter_info
+        if self.matching_friendly and 'self' in pi:
+            pi = pi.copy()
+            del pi['self']
+        return pi
 
     def get_invoker_name(self):
         return self.py_function.func_name
@@ -211,3 +241,34 @@ class LeetcodeExecutor:
 
     def get_return_type(self):
         return self.executor.get_return_type()
+
+
+class LeetcodeInvokerFactory:
+    INVOKER_ID_GENERATOR = 1
+
+    @staticmethod
+    def __gen_id__():
+        cur_id = LeetcodeInvokerFactory.INVOKER_ID_GENERATOR
+        LeetcodeInvokerFactory.INVOKER_ID_GENERATOR += 1
+        return cur_id
+
+    @staticmethod
+    def get_leetcode_invoker(func, order: int = None) -> LeetcodeInvoker:
+        cur_id = LeetcodeInvokerFactory.__gen_id__()
+        if order is None:
+            order = cur_id
+        return LeetcodeInvoker(cur_id, order, PythonFunction(func))
+
+
+class LeetcodeExecutorFactory:
+
+    @staticmethod
+    def get_leetcode_executor(object_instance, *leetcode_invokers):
+        AssertUtil.non_null(object_instance, "The instance cannot be null.")
+        primary_invoker = leetcode_invokers[0] if len(leetcode_invokers) > 0 else None
+        executor = LeetcodeExecutor(object_instance, primary_invoker)
+        for i in range(1, len(leetcode_invokers), 1):
+            leetcode_invoker = leetcode_invokers[i]
+            if leetcode_invoker is not None:
+                executor.get_candidate_invokes().append(leetcode_invoker)
+        return executor
