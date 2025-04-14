@@ -39,7 +39,7 @@ class AssertUtil:
 
     @staticmethod
     def not_blank(string: str, msg: str):
-        AssertUtil.is_true(string is not None and string.strip() == '', msg)
+        AssertUtil.is_true(string is not None and string.strip() != '', msg)
 
 
 class StringUtil:
@@ -87,7 +87,6 @@ class ClassUtil:
 
     @staticmethod
     def instantiate_classes(classes, config=None):
-        AssertUtil.not_empty(classes, "The classes cannot be empty.")
         classes = [c for c in classes if c is not None]
         instances = []
         for c in classes:
