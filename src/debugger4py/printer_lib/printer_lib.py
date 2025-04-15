@@ -88,3 +88,12 @@ class OutputPrinterFactory:
         if ContainerUtil.not_empty(custom_strategies):
             builtin_strategies.extend(custom_strategies)
         return OutputPrinter(builtin_strategies)
+
+
+class OutputPrinterProcessor:
+
+    @staticmethod
+    def process(printer, output_obj, output_obj_type):
+        AssertUtil.non_null(printer, "The printer cannot be null.")
+        AssertUtil.is_true(isinstance(printer, OutputPrinter), "The printer is not a OutputPrinter.")
+        return printer.print_object(output_obj, output_obj_type)
