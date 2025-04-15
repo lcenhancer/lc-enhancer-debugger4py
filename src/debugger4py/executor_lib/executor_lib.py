@@ -236,7 +236,7 @@ class LeetcodeExecutor:
     def set_executor(self, executor: LeetcodeInvoker):
         self.executor = executor
 
-    def get_candidate_invokes(self):
+    def get_candidate_invokers(self):
         return self.candidate_invokers
 
     def get_return_type(self):
@@ -270,5 +270,15 @@ class LeetcodeExecutorFactory:
         for i in range(1, len(leetcode_invokers), 1):
             leetcode_invoker = leetcode_invokers[i]
             if leetcode_invoker is not None:
-                executor.get_candidate_invokes().append(leetcode_invoker)
+                executor.get_candidate_invokers().append(leetcode_invoker)
         return executor
+
+    @staticmethod
+    def copy_by_leetcode_executor(object_instance):
+        AssertUtil.non_null(object_instance, "The instance cannot be null.")
+        AssertUtil.is_true(isinstance(object_instance, LeetcodeExecutor),
+                           "The instance is not a LeetcodeExecutor instance."
+                           )
+        copied_instance = LeetcodeExecutor(object_instance.get_instance(), object_instance.get_executor())
+        copied_instance.candidate_invokers.extend(object_instance.get_candidate_invokers())
+        return copied_instance
