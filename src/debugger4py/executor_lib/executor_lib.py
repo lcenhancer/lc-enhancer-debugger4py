@@ -223,7 +223,7 @@ class LeetcodeExecutor:
         if executor is not None:
             self.candidate_invokers.append(executor)
 
-    def exec(self, input_obj):
+    def execute(self, input_obj):
         AssertUtil.non_null(self.executor, "The leetcode executor cannot be null.")
         return self.executor.invoke(input_obj)
 
@@ -282,3 +282,12 @@ class LeetcodeExecutorFactory:
         copied_instance = LeetcodeExecutor(object_instance.get_instance(), object_instance.get_executor())
         copied_instance.candidate_invokers.extend(object_instance.get_candidate_invokers())
         return copied_instance
+
+
+class LeetcodeExecutorProcessor:
+
+    @staticmethod
+    def process(executor, input_obj):
+        AssertUtil.non_null(executor, "The executor cannot be null.")
+        AssertUtil.is_true(isinstance(executor, LeetcodeExecutor), "The executor is not a LeetcodeExecutor.")
+        return executor.execute(input_obj)
