@@ -214,6 +214,9 @@ class LeetcodeInvoker(Order):
     def get_order(self) -> int:
         return self.order
 
+    def is_suitable(self, suitable_type):
+        return self.py_function.func.__qualname__ == suitable_type.__name__
+
 
 class LeetcodeExecutor:
     def __init__(self, instance, executor: LeetcodeInvoker):
