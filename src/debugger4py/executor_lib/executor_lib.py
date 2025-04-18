@@ -228,10 +228,15 @@ class LeetcodeExecutor:
 
     def execute(self, input_obj):
         AssertUtil.non_null(self.executor, "The leetcode executor cannot be null.")
-        return self.executor.invoke(input_obj)
+        __invoke_params__ = [self.instance] if self.instance is not None else []
+        __invoke_params__.extend(input_obj)
+        return self.executor.invoke(__invoke_params__)
 
     def get_instance(self):
         return self.instance
+
+    def set_instance(self, instance):
+        self.instance = instance
 
     def get_executor(self):
         return self.executor
