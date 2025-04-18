@@ -215,7 +215,12 @@ class LeetcodeInvoker(Order):
         return self.order
 
     def is_suitable(self, suitable_type):
-        return self.py_function.func.__qualname__ == suitable_type.__name__
+        suitable_type_full_name = f"{suitable_type.__module__}.{suitable_type.__qualname__}"
+        func_full_name = f"{self.py_function.func.__module__}.{self.py_function.func.__qualname__}"
+        idx = func_full_name.rfind(".")
+        if idx != -1:
+            func_full_name = func_full_name[:idx]
+        return suitable_type_full_name == func_full_name
 
 
 class LeetcodeExecutor:
