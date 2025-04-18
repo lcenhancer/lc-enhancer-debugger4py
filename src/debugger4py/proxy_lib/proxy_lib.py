@@ -117,3 +117,7 @@ class EnhancerProxyFactory:
         if not isinstance(enhancer, EnhancerProxyHandler):
             return enhancer
         return EnhancerProxyFactory.aware_source_enhancer(enhancer.get_target())
+
+    @staticmethod
+    def is_enhancer(enhancer):
+        return isinstance(EnhancerProxyFactory.aware_source_enhancer(enhancer), LeetcodePythonDebugEnhancer)
