@@ -20,8 +20,8 @@ from inspect import isabstract
 from typing import Type
 
 from src.debugger4py.base import AssertUtil, ContainerUtil, OrderUtil
-from src.debugger4py.enhancer_lib import LeetcodePythonDebugEnhancer
 from .builtin_interceptor import ProxyPointInterceptor, ProxyPointParameterView
+from src.debugger4py.enhancer_api import LeetcodePythonDebugEnhancer
 
 
 class ProxyPointInterceptorManager:
