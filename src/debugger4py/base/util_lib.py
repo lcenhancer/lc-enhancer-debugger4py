@@ -43,6 +43,7 @@ class AssertUtil:
 
 
 class StringUtil:
+
     @staticmethod
     def is_blank(string: str) -> bool:
         return string is None or string.strip() == ''
@@ -53,6 +54,7 @@ class StringUtil:
 
 
 class ContainerUtil:
+
     @staticmethod
     def is_empty(obj: Any) -> bool:
         return obj is None or len(obj) == 0
@@ -63,12 +65,14 @@ class ContainerUtil:
 
 
 class ModuleUtil:
+
     @staticmethod
     def load_module_from_file(file_path):
         return importlib.import_module(file_path)
 
 
 class ClassUtil:
+
     @staticmethod
     def get_classes_from_module(module, class_filter=None):
         classes = []
@@ -78,6 +82,19 @@ class ClassUtil:
                     continue
                 classes.append(obj)
         return classes
+
+    @staticmethod
+    def load_class_from_file(module, class_name):
+        AssertUtil.not_blank(class_name, "The class name cannot be blank.")
+        return getattr(ModuleUtil.load_module_from_file(module), class_name)
+
+    @staticmethod
+    def load_class(full_class_path):
+        AssertUtil.not_blank(full_class_path, "The full class path cannot be blank.")
+        if full_class_path.find(".") == -1:
+            return ClassUtil.load_class_from_file("", full_class_path)
+        module, class_name = full_class_path.rsplit(".", 1)
+        return ClassUtil.load_class_from_file(module, class_name)
 
     @staticmethod
     def instantiate_class(cls, config=None):

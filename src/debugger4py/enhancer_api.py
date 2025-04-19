@@ -19,9 +19,9 @@ limitations under the License.
 from abc import ABCMeta
 from typing import List, Type
 
-from src.debugger4py.io_lib import InputProvider, OutputConsumer
+from src.debugger4py.eio import InputProvider, OutputConsumer
 from src.debugger4py.parser_lib import BaseParameterAcceptStrategy
-from src.debugger4py.printer_lib import BaseOutputPrintStrategy
+from src.debugger4py.printer import BaseOutputPrintStrategy
 
 
 class LeetcodePythonDebugEnhancer(metaclass=ABCMeta):

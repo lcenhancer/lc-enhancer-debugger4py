@@ -110,7 +110,7 @@ class BootstrapPipeline(Pipeline):
         leetcode_instance = boss_leetcode_executor.get_instance()
         if not isinstance(leetcode_instance, type):
             return
-        from src.debugger4py.enhancer_lib import LeetcodePythonDebugEnhancer
+        from src.debugger4py.enhancer_api import LeetcodePythonDebugEnhancer
         if issubclass(leetcode_instance, LeetcodePythonDebugEnhancer):
             return
         from inspect import isabstract
