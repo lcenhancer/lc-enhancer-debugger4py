@@ -20,7 +20,7 @@ import ast
 from collections import OrderedDict
 from typing import Type, Dict, Any, List, Tuple, Optional, Union
 
-from src.debugger4py.base_lib import AssertUtil, StringUtil, TreeNode, ListNode, Order
+from src.debugger4py.base import AssertUtil, StringUtil, TreeNode, ListNode, Order
 
 
 class PythonFunction:
