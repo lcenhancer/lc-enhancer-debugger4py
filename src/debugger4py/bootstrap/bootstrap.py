@@ -24,7 +24,7 @@ class Debugger4pyBootstrap:
         from src.debugger4py.base import AssertUtil
         AssertUtil.non_null(__AT_TYPE__, "The AT-TYPE cannot be null.")
         AssertUtil.is_true(isinstance(__AT_TYPE__, type), "The AT-TYPE is not a type.")
-        from src.debugger4py.enhancer_api import LeetcodePythonDebugEnhancer
+        from src.debugger4py.enhancer4py import LeetcodePythonDebugEnhancer
         AssertUtil.is_true(issubclass(__AT_TYPE__, LeetcodePythonDebugEnhancer),
                            "The AT-TYPE is not an AT class.")
         from src.debugger4py.proxy import EnhancerProxyFactory
