@@ -19,8 +19,8 @@ limitations under the License.
 from collections import deque
 from typing import Type, Mapping, List
 
-from src.debugger4py.base_lib import TreeNode, ListNode
-from src.debugger4py.printer_lib.printer_lib import BaseOutputPrintStrategy
+from src.debugger4py.base import TreeNode, ListNode
+from .printer_lib import BaseOutputPrintStrategy
 
 
 class BinaryTreePrintingStrategy(BaseOutputPrintStrategy):

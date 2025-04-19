@@ -21,7 +21,7 @@ from abc import ABCMeta, abstractmethod
 from inspect import isabstract
 from typing import Mapping, Type, List, final, Any
 
-from src.debugger4py.base_lib import Strategizable, AssertUtil, ClassUtil, ModuleUtil, ContainerUtil
+from src.debugger4py.base import Strategizable, AssertUtil, ClassUtil, ModuleUtil, ContainerUtil
 
 
 class BaseOutputPrintStrategy(Strategizable, metaclass=ABCMeta):
@@ -78,7 +78,7 @@ class OutputPrinterFactory:
     def get_output_printer(enhancer) -> OutputPrinter:
         AssertUtil.non_null(enhancer, "The enhancer cannot be null.")
         builtin_strategy_classes = ClassUtil.get_classes_from_module(
-            ModuleUtil.load_module_from_file("src.debugger4py.printer_lib.builtin_strategy"),
+            ModuleUtil.load_module_from_file("src.debugger4py.printer.builtin_strategy"),
             lambda cls:
             not isabstract(cls)
             and issubclass(cls, BaseOutputPrintStrategy)
