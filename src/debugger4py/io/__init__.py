@@ -1,4 +1,4 @@
-from src.debugger4py.io_lib.io_lib import (
+from .io_lib import (
     InputProvider,
     OutputConsumer,
     BaseBufferReaderInputProvider,

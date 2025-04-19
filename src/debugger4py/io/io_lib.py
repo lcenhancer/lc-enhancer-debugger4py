@@ -22,7 +22,7 @@ import sys
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from src.debugger4py.base_lib import Order, Closable, AssertUtil, StringUtil
+from src.debugger4py.base import Order, Closable, AssertUtil, StringUtil
 
 
 class InputProvider(Order, Closable, metaclass=ABCMeta):
