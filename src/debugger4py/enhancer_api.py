@@ -19,7 +19,7 @@ limitations under the License.
 from abc import ABCMeta
 from typing import List, Type
 
-from src.debugger4py.eio import InputProvider, OutputConsumer
+from src.debugger4py.io_ import InputProvider, OutputConsumer
 from src.debugger4py.parser_lib import BaseParameterAcceptStrategy
 from src.debugger4py.printer import BaseOutputPrintStrategy
 
