@@ -18,7 +18,7 @@ limitations under the License.
 
 from abc import ABCMeta, abstractmethod
 
-from src.debugger4py.base_lib import AssertUtil, Order
+from src.debugger4py.base import AssertUtil, Order
 
 
 class ProxyPointParameterView:

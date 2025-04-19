@@ -19,19 +19,19 @@ limitations under the License.
 from inspect import isabstract
 from typing import Type
 
-from src.debugger4py.base_lib import AssertUtil, ContainerUtil
+from src.debugger4py.base import AssertUtil, ContainerUtil
 from src.debugger4py.enhancer_lib import LeetcodePythonDebugEnhancer
-from src.debugger4py.proxy_lib.builtin_interceptor import ProxyPointInterceptor, ProxyPointParameterView
+from .builtin_interceptor import ProxyPointInterceptor, ProxyPointParameterView
 
 
 class ProxyPointInterceptorManager:
 
     def __init__(self):
         self.proxy_point_interceptor_map = {}
-        from src.debugger4py.base_lib import ClassUtil
-        from src.debugger4py.base_lib import ModuleUtil
+        from src.debugger4py.base import ClassUtil
+        from src.debugger4py.base import ModuleUtil
         builtin_interceptor_classes = ClassUtil.get_classes_from_module(
-            ModuleUtil.load_module_from_file("src.debugger4py.proxy_lib.builtin_interceptor"),
+            ModuleUtil.load_module_from_file("src.debugger4py.proxy.builtin_interceptor"),
             lambda cls:
             not isabstract(cls)
             and issubclass(cls, ProxyPointInterceptor)
@@ -92,7 +92,7 @@ class EnhancerProxyHandler:
         return attr
 
     def __proxy_point_invoke__(self, point_name, point_obj, *point_args):
-        from src.debugger4py.executor_lib import LeetcodeInvokerFactory
+        from src.debugger4py.executor import LeetcodeInvokerFactory
         invoker = LeetcodeInvokerFactory.get_leetcode_invoker(point_obj)
         param_view = ProxyPointParameterView(
             invoker.get_parameter_types(),
