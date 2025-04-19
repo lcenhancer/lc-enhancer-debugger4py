@@ -16,7 +16,7 @@ limitations under the License.
 
 """
 
-from .enhancer_api import LeetcodePythonDebugEnhancer
+from .enhancer4py import LeetcodePythonDebugEnhancer
 
 
 class Debugger4py(LeetcodePythonDebugEnhancer):
