@@ -15,5 +15,6 @@ from .util_lib import (
     ContainerUtil,
     ModuleUtil,
     ClassUtil,
-    TypeUtil
+    TypeUtil,
+    OrderUtil
 )

@@ -103,3 +103,36 @@ class TypeUtil:
     @staticmethod
     def obtain_raw_type_of_type(cur_type: Type):
         return get_origin(cur_type)
+
+
+class OrderUtil:
+    ASC_ORDER_CMP = {
+        'key': lambda x: x.get_order(),
+        'reverse': False
+    }
+
+    DESC_ORDER_CMP = {
+        'key': lambda x: x.get_order(),
+        'reverse': True
+    }
+
+    @staticmethod
+    def asc_comparator():
+        return OrderUtil.ASC_ORDER_CMP
+
+    @staticmethod
+    def desc_comparator():
+        return OrderUtil.DESC_ORDER_CMP
+
+    @staticmethod
+    def order_sort(order_able_list, comparator=ASC_ORDER_CMP):
+        AssertUtil.non_null(order_able_list, "The list cannot be null.")
+        order_able_list.sort(**comparator)
+
+    @staticmethod
+    def asc_sort(order_able_list):
+        return OrderUtil.order_sort(order_able_list, OrderUtil.asc_comparator())
+
+    @staticmethod
+    def desc_sort(order_able_list):
+        return OrderUtil.order_sort(order_able_list, OrderUtil.desc_comparator())
