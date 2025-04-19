@@ -19,7 +19,7 @@ limitations under the License.
 from abc import ABCMeta, abstractmethod
 from typing import Type, List, Any
 
-from src.debugger4py.base_lib.util_lib import AssertUtil, TypeUtil
+from .util_lib import AssertUtil, TypeUtil
 
 
 class Order(metaclass=ABCMeta):
