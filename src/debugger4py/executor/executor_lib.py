@@ -203,7 +203,10 @@ class LeetcodeInvoker(Order):
         return pi
 
     def get_invoker_name(self):
-        return self.py_function.func_name
+        invoker_name = self.py_function.func_name
+        if self.matching_friendly and invoker_name == '__init__':
+            invoker_name = self.py_function.func.__qualname__.split('.')[:-1][-1]
+        return invoker_name
 
     def get_return_type(self):
         return self.py_function.return_type
@@ -233,6 +236,12 @@ class LeetcodeExecutor:
 
     def execute(self, input_obj):
         AssertUtil.non_null(self.executor, "The leetcode executor cannot be null.")
+        input_obj = input_obj if input_obj is not None else []
+
+        if (isinstance(self.instance, type) and self.executor.get_invoker_name() == self.instance.__name__
+                and self.executor.py_function.func_name == '__init__'):
+            return self.instance(*input_obj)
+
         __invoke_params__ = [self.instance] if self.instance is not None else []
         __invoke_params__.extend(input_obj)
         return self.executor.invoke(__invoke_params__)
