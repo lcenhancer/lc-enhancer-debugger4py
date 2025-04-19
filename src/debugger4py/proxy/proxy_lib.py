@@ -19,7 +19,7 @@ limitations under the License.
 from inspect import isabstract
 from typing import Type
 
-from src.debugger4py.base import AssertUtil, ContainerUtil
+from src.debugger4py.base import AssertUtil, ContainerUtil, OrderUtil
 from src.debugger4py.enhancer_lib import LeetcodePythonDebugEnhancer
 from .builtin_interceptor import ProxyPointInterceptor, ProxyPointParameterView
 
@@ -43,10 +43,8 @@ class ProxyPointInterceptorManager:
             if intercept_point not in self.proxy_point_interceptor_map:
                 self.proxy_point_interceptor_map[intercept_point] = []
             self.proxy_point_interceptor_map[intercept_point].append(interceptor)
-        self.proxy_point_interceptor_map = {
-            order: sorted(groups, key=lambda x: x.get_order(), reverse=True)
-            for order, groups in self.proxy_point_interceptor_map.items()
-        }
+        for intercept_point in self.proxy_point_interceptor_map:
+            OrderUtil.desc_sort(self.proxy_point_interceptor_map[intercept_point])
 
     def do_intercept_on_before(self, enhancer, point_name: str, param_view: ProxyPointParameterView):
         AssertUtil.non_null(enhancer, "The enhancer cannot be null.")

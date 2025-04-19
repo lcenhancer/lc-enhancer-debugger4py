@@ -21,7 +21,7 @@ from abc import ABCMeta, abstractmethod
 from inspect import isabstract
 from typing import Mapping, Type, List, final, Any
 
-from src.debugger4py.base import Strategizable, AssertUtil, ClassUtil, ModuleUtil, ContainerUtil
+from src.debugger4py.base import Strategizable, AssertUtil, ClassUtil, ModuleUtil, ContainerUtil, OrderUtil
 
 
 class BaseOutputPrintStrategy(Strategizable, metaclass=ABCMeta):
@@ -45,10 +45,9 @@ class OutputPrinter(BaseOutputPrintStrategy):
         for printing_strategy in printing_strategies:
             groups[printing_strategy.get_acceptable_type()].append(printing_strategy)
         groups[self.get_object_type(Any)].append(self)
-        self.strategies = {
-            order: sorted(groups, key=lambda x: x.get_order(), reverse=True)
-            for order, groups in groups.items()
-        }
+        for __type__ in groups:
+            OrderUtil.desc_sort(groups[__type__])
+        self.strategies = groups
 
     def get_acceptable_type(self) -> Type:
         return Any
