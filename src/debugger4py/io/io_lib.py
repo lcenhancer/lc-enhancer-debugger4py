@@ -193,6 +193,7 @@ class MultipleOutputConsumer(OutputConsumer):
 
 
 class IOFactory:
+
     @staticmethod
     def get_input_provider(enhancer) -> InputProvider:
         AssertUtil.non_null(enhancer, "The enhancer cannot be null.")
