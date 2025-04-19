@@ -21,7 +21,7 @@ from typing import Type
 
 from src.debugger4py.base import AssertUtil, ContainerUtil, OrderUtil
 from .builtin_interceptor import ProxyPointInterceptor, ProxyPointParameterView
-from src.debugger4py.enhancer_api import LeetcodePythonDebugEnhancer
+from src.debugger4py.enhancer4py import LeetcodePythonDebugEnhancer
 
 
 class ProxyPointInterceptorManager:
