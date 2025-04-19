@@ -161,7 +161,7 @@ class PipelineProcessor:
         output_printer = OutputPrinterFactory.get_output_printer(enhancer)
         from src.debugger4py.parser_lib import InputParserFactory
         input_parser = InputParserFactory.get_input_parser(enhancer)
-        from src.debugger4py.eio import IOFactory
+        from src.debugger4py.io_ import IOFactory
         with (IOFactory.get_input_provider(enhancer)) as input_provider, (
                 IOFactory.get_output_consumer(enhancer)) as output_consumer:
             BootstrapPipeline(
